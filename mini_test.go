@@ -42,7 +42,7 @@ false=false
 	assert.Equal(t, config.String("second", ""), "beta", "Read value of second wrong")
 	assert.Equal(t, config.String("third", ""), "gamma bamma", "Read value of third wrong")
 	assert.Equal(t, config.String("fourth", ""), "delta", "Read value of fourth wrong")
-	assert.Equal(t, config.Integer("int", 0), 32, "Read value of int wrong")
+	assert.Equal(t, config.Integer("int", 0), int64(32), "Read value of int wrong")
 	assert.Equal(t, config.Float("float", 0), 3.14, "Read value of float wrong")
 	assert.Equal(t, config.Boolean("true", false), true, "Read true wrong")
 	assert.Equal(t, config.Boolean("false", true), false, "Read false wrong")
@@ -71,7 +71,7 @@ false=false
 	assert.Equal(t, config.String("second", ""), "beta", "Read value of second wrong")
 	assert.Equal(t, config.String("third", ""), "gamma bamma", "Read value of third wrong")
 	assert.Equal(t, config.String("fourth", ""), "delta", "Read value of fourth wrong")
-	assert.Equal(t, config.Integer("int", 0), 32, "Read value of int wrong")
+	assert.Equal(t, config.Integer("int", 0), int64(32), "Read value of int wrong")
 	assert.Equal(t, config.Float("float", 0), 3.14, "Read value of float wrong")
 	assert.Equal(t, config.Boolean("true", false), true, "Read true wrong")
 	assert.Equal(t, config.Boolean("false", true), false, "Read false wrong")
@@ -134,12 +134,12 @@ noarray=3`
 	val := config.Integers("key")
 
 	assert.Equal(t, len(val), 2, "Array for keys should have 2 values")
-	assert.Equal(t, val[0], 1, "Read value of first wrong")
-	assert.Equal(t, val[1], 2, "Read value of second wrong")
+	assert.Equal(t, val[0], int64(1), "Read value of first wrong")
+	assert.Equal(t, val[1], int64(2), "Read value of second wrong")
 
 	val = config.Integers("noarray")
 	assert.Equal(t, len(val), 1, "Array for noarray should have 1 value")
-	assert.Equal(t, val[0], 3, "Read value of noarray wrong")
+	assert.Equal(t, val[0], int64(3), "Read value of noarray wrong")
 
 	assert.Equal(t, len(config.Keys()), 2, "IntArray test contains 2 fields")
 }
@@ -196,14 +196,14 @@ false=true
 	assert.Equal(t, config.String("second", ""), "beta", "Read value of second wrong")
 	assert.Equal(t, config.String("third", ""), "gamma bamma", "Read value of third wrong")
 	assert.Equal(t, config.String("fourth", ""), "delta", "Read value of fourth wrong")
-	assert.Equal(t, config.Integer("int", 0), 32, "Read value of int wrong")
+	assert.Equal(t, config.Integer("int", 0), int64(32), "Read value of int wrong")
 	assert.Equal(t, config.Float("float", 0), 3.14, "Read value of float wrong")
 	assert.Equal(t, config.Boolean("true", false), true, "Read true wrong")
 	assert.Equal(t, config.Boolean("false", true), false, "Read false wrong")
 
 	assert.Equal(t, config.StringFromSection("section", "first", ""), "raz", "Read value of first from section wrong")
 	assert.Equal(t, config.StringFromSection("section", "second", ""), "dba", "Read value of second from section wrong")
-	assert.Equal(t, config.IntegerFromSection("section", "int", 0), 124, "Read value of int in section wrong")
+	assert.Equal(t, config.IntegerFromSection("section", "int", 0), int64(124), "Read value of int in section wrong")
 	assert.Equal(t, config.FloatFromSection("section", "float", 0), 1222.7, "Read value of float in section wrong")
 	assert.Equal(t, config.BooleanFromSection("section", "true", true), false, "Read true in section wrong")
 	assert.Equal(t, config.BooleanFromSection("section", "false", false), true, "Read false in section wrong")
@@ -254,12 +254,12 @@ noarray=3`
 	val := config.IntegersFromSection("section", "key")
 
 	assert.Equal(t, len(val), 2, "Array for keys should have 2 values")
-	assert.Equal(t, val[0], 1, "Read value of first wrong")
-	assert.Equal(t, val[1], 2, "Read value of second wrong")
+	assert.Equal(t, val[0], int64(1), "Read value of first wrong")
+	assert.Equal(t, val[1], int64(2), "Read value of second wrong")
 
 	val = config.IntegersFromSection("section", "noarray")
 	assert.Equal(t, len(val), 1, "Array for noarray should have 1 value")
-	assert.Equal(t, val[0], 3, "Read value of noarray wrong")
+	assert.Equal(t, val[0], int64(3), "Read value of noarray wrong")
 
 	assert.Equal(t, len(config.KeysForSection("section")), 2, "IntArray section test contains 2 fields")
 }
@@ -311,25 +311,25 @@ float=124.3`
 	assert.Nil(t, err, "Sectioned configuration should load without error.")
 
 	assert.Equal(t, config.String("first", ""), "alpha", "Read value of first wrong")
-	assert.Equal(t, config.Integer("int", 0), 32, "Read value of int wrong")
+	assert.Equal(t, config.Integer("int", 0), int64(32), "Read value of int wrong")
 	assert.Equal(t, config.Float("float", 0), 3.14, "Read value of float wrong")
 
 	assert.Equal(t, config.StringFromSection("", "first", ""), "alpha", "Read value of first wrong")
-	assert.Equal(t, config.IntegerFromSection("", "int", 0), 32, "Read value of int wrong")
+	assert.Equal(t, config.IntegerFromSection("", "int", 0), int64(32), "Read value of int wrong")
 	assert.Equal(t, config.FloatFromSection("", "float", 0), 3.14, "Read value of float wrong")
 
 	config.SetName("section_zero")
 
 	assert.Equal(t, config.StringFromSection("section_zero", "first", ""), "alpha", "Read value of first wrong")
-	assert.Equal(t, config.IntegerFromSection("section_zero", "int", 0), 32, "Read value of int wrong")
+	assert.Equal(t, config.IntegerFromSection("section_zero", "int", 0), int64(32), "Read value of int wrong")
 	assert.Equal(t, config.FloatFromSection("section_zero", "float", 0), 3.14, "Read value of float wrong")
 
 	assert.Equal(t, config.StringFromSection("section_one", "first", ""), "raz", "Read value of first from section wrong")
-	assert.Equal(t, config.IntegerFromSection("section_one", "int", 0), 124, "Read value of int in section wrong")
+	assert.Equal(t, config.IntegerFromSection("section_one", "int", 0), int64(124), "Read value of int in section wrong")
 	assert.Equal(t, config.FloatFromSection("section_one", "float", 0), 1222.7, "Read value of float in section wrong")
 
 	assert.Equal(t, config.StringFromSection("section_two", "first", ""), "one", "Read value of first from section wrong")
-	assert.Equal(t, config.IntegerFromSection("section_two", "int", 0), 555, "Read value of int in section wrong")
+	assert.Equal(t, config.IntegerFromSection("section_two", "int", 0), int64(555), "Read value of int in section wrong")
 	assert.Equal(t, config.FloatFromSection("section_two", "float", 0), 124.3, "Read value of float in section wrong")
 
 	assert.Equal(t, len(config.Keys()), 3, "Section ini contains 3 fields")
@@ -405,15 +405,15 @@ float=1222.7`
 	assert.Nil(t, err, "Sectioned configuration should load without error.")
 
 	assert.Equal(t, config.String("first", ""), "alpha", "Read value of first wrong")
-	assert.Equal(t, config.Integer("int", 0), 32, "Read value of int wrong")
+	assert.Equal(t, config.Integer("int", 0), int64(32), "Read value of int wrong")
 	assert.Equal(t, config.Float("float", 0), 3.14, "Read value of float wrong")
 
 	assert.Equal(t, config.StringFromSection("section_one", "first", ""), "raz", "Read value of first from section wrong")
-	assert.Equal(t, config.IntegerFromSection("section_one", "int", 0), 124, "Read value of int in section wrong")
+	assert.Equal(t, config.IntegerFromSection("section_one", "int", 0), int64(124), "Read value of int in section wrong")
 	assert.Equal(t, config.FloatFromSection("section_one", "float", 0), 1222.7, "Read value of float in section wrong")
 
 	assert.Equal(t, config.StringFromSection("section_two", "first", ""), "one", "Read value of first from section wrong")
-	assert.Equal(t, config.IntegerFromSection("section_two", "int", 0), 555, "Read value of int in section wrong")
+	assert.Equal(t, config.IntegerFromSection("section_two", "int", 0), int64(555), "Read value of int in section wrong")
 	assert.Equal(t, config.FloatFromSection("section_two", "float", 0), 124.3, "Read value of float in section wrong")
 
 	assert.Equal(t, len(config.Keys()), 3, "Section ini contains 3 fields")
@@ -446,12 +446,12 @@ third=\`
 
 	assert.Equal(t, config.String("second", "beta"), "beta", "Read default value of first wrong")
 	assert.Equal(t, config.String("third", "gamma"), "gamma", "Read default value of too short a string")
-	assert.Equal(t, config.Integer("int", 32), 32, "Default value of int wrong")
+	assert.Equal(t, config.Integer("int", 32), int64(32), "Default value of int wrong")
 	assert.Equal(t, config.Float("float", 3.14), 3.14, "Default value of float wrong")
 	assert.Equal(t, config.Boolean("bool", true), true, "Default value of bool wrong")
 
 	assert.Equal(t, config.String("", "test"), "test", "Nil key should result in empty value")
-	assert.Equal(t, config.Integer("", 32), 32, "Default value of int wrong for empty key")
+	assert.Equal(t, config.Integer("", 32), int64(32), "Default value of int wrong for empty key")
 	assert.Equal(t, config.Float("", 3.14), 3.14, "Default value of float wrong for empty key")
 	assert.Equal(t, config.Boolean("", true), true, "Default value of bool wrong for empty key")
 
@@ -472,7 +472,7 @@ floatarray[]=blap`
 	assert.Nil(t, err, "Configuration should load without error.")
 
 	assert.Equal(t, config.String("second", "beta"), "beta", "Read default value of first wrong")
-	assert.Equal(t, config.Integer("int", 32), 32, "Default value of int wrong")
+	assert.Equal(t, config.Integer("int", 32), int64(32), "Default value of int wrong")
 	assert.Equal(t, config.Float("float", 3.14), 3.14, "Default value of float wrong")
 	assert.Equal(t, config.Boolean("bool", true), true, "Default value of bool wrong")
 
@@ -511,12 +511,12 @@ first=alpha`
 	assert.Nil(t, err, "Configuration should load without error.")
 
 	assert.Equal(t, config.StringFromSection("section", "second", "beta"), "beta", "Read default value of first wrong")
-	assert.Equal(t, config.IntegerFromSection("section", "int", 32), 32, "Default value of int wrong")
+	assert.Equal(t, config.IntegerFromSection("section", "int", 32), int64(32), "Default value of int wrong")
 	assert.Equal(t, config.FloatFromSection("section", "float", 3.14), 3.14, "Default value of float wrong")
 	assert.Equal(t, config.BooleanFromSection("section", "bool", true), true, "Default value of bool wrong")
 
 	assert.Equal(t, config.StringFromSection("section-1", "second", "beta"), "beta", "Missing section for first wrong")
-	assert.Equal(t, config.IntegerFromSection("section-1", "int", 32), 32, "Missing section for int wrong")
+	assert.Equal(t, config.IntegerFromSection("section-1", "int", 32), int64(32), "Missing section for int wrong")
 	assert.Equal(t, config.FloatFromSection("section-1", "float", 3.14), 3.14, "Missing section for float wrong")
 	assert.Equal(t, config.BooleanFromSection("section-1", "bool", true), true, "Missing section for bool wrong")
 
@@ -577,11 +577,11 @@ F64s[]=22.0
 
 	assert.Equal(t, data.First, "alpha", "Read value of first wrong")
 	assert.Equal(t, data.Second, "beta", "Read value of second wrong")
-	assert.Equal(t, data.L, -32, "Read value of int wrong")
+	assert.Equal(t, data.L, int64(-32), "Read value of int wrong")
 	assert.Equal(t, data.F64, 3.14, "Read value of float wrong")
 	assert.Equal(t, data.Flag, true, "Read true wrong")
 	assert.Equal(t, data.Missing, "hello world", "Read value of missing wrong")
-	assert.Equal(t, data.MissingInt, 33, "Read false wrong")
+	assert.Equal(t, data.MissingInt, int64(33), "Read false wrong")
 	assert.Nil(t, data.MissingArray, "Missing array Should be nil")
 	assert.Equal(t, data.private, "", "private value in struct should be ignored")
 
@@ -593,8 +593,8 @@ F64s[]=22.0
 
 	assert.NotNil(t, data.LS, "ints should not be nil")
 	assert.Equal(t, len(data.LS), 2, "Read wrong length of ints array")
-	assert.Equal(t, data.LS[0], 1, "Read ints array wrong")
-	assert.Equal(t, data.LS[1], 2, "Read ints array wrong")
+	assert.Equal(t, data.LS[0], int64(1), "Read ints array wrong")
+	assert.Equal(t, data.LS[1], int64(2), "Read ints array wrong")
 
 	assert.NotNil(t, data.F64s, "floats should not be nil")
 	assert.Equal(t, len(data.F64s), 2, "Read wrong length of floats array")
