@@ -1,4 +1,4 @@
-[![GoDoc](https://godoc.org/github.com/FogCreek/mini?status.svg)](https://godoc.org/github.com/FogCreek/mini)
+=Logging [![Build Status](https://travis-ci.org/sasbury/mini.svg?branch=master)](https://travis-ci.org/sasbury/mini) [![GoDoc](https://godoc.org/github.com/sasbury/mini?status.svg)](https://godoc.org/github.com/sasbury/mini)
 
 Mini is a simple [ini configuration file](http://en.wikipedia.org/wiki/INI_file) parser.
 
